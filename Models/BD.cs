@@ -3,32 +3,52 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
-namespace Prac.Models
+namespace Practica.Models
 {
     public static class BD
     {
-        private static string _connectionString = @"Server=localhost\SQLEXPRESS;Database=GestionAlumnos;Integrated Security=True;";
+        private static string _connectionString = @"Server=A-PHZ2-CIDI-017;Database=GestionAlumnoss;Trusted_Connection=True;";
         
-        public static List<Alumnos> SeleccionarAlumnos()
+        public static List<Alumno> SeleccionarAlumnos()
         {
-            List<Alumnos> ListaAlumnos;
+            List<Alumno> ListaAlumnos;
             using(SqlConnection db = new SqlConnection(_connectionString))
             {
                 string sql = "SELECT * FROM Alumnos";
-                ListaAlumnos = db.Query<Alumnos>(sql).ToList();
+                ListaAlumnos = db.Query<Alumno>(sql).ToList();
             }
             return ListaAlumnos;
         }
     
-        public static Alumnos AlumnoElegido(int id)
+        public static Alumno AlumnoElegido(int id)
         {
-            Alumnos Elegido = null;
+            Alumno Elegido = null;
             using (SqlConnection db = new SqlConnection(_connectionString))
             {
-                string SQL = "SELECT * FROM Alumnos WHERE id= id";
-                Elegido = db.QueryFirstOrDefault<Alumnos>(SQL, new { Alumnos= id });
+                string SQL = "SELECT * FROM Alumnos WHERE id = @alumno";
+                Elegido = db.QueryFirstOrDefault<Alumno>(SQL, new { Alumno= id });
             }
             return Elegido;
         }
-
-     
+        public static List<Alumno> SeleccionarAlumnosConMenorASeis()
+        {
+            List<Alumno> ListaAlumnos;
+            using(SqlConnection db = new SqlConnection(_connectionString))
+            {
+                string sql = "SELECT * FROM Alumnos WHERE promedio < 6";
+                ListaAlumnos = db.Query<Alumno>(sql).ToList();
+            }
+            return ListaAlumnos;
+        }
+        public static List<Alumno> SeleccionarAlumnosConMayorASeis()
+        {
+            List<Alumno> ListaAlumnos;
+            using(SqlConnection db = new SqlConnection(_connectionString))
+            {
+                string sql = "SELECT * FROM Alumnos WHERE promedio >= 6";
+                ListaAlumnos = db.Query<Alumno>(sql).ToList();
+            }
+            return ListaAlumnos;
+        }
+    }
+}

@@ -1,16 +1,24 @@
-@model Prac.Models.Alumnos
+@model Practica.Models.Alumno
 
 @{
     ViewData["Title"] = "Detalle del Alumno";
 }
 
-<div class="text-center">
+<div class="veralumno">
     <h1>Detalles del Alumno</h1>
-    <p><strong>Nombre:</strong> @Model.nombre</p>
-    <p><strong>Apellido:</strong> @Model.apellido</p>
-    <p><strong>Curso:</strong> @Model.curso</p>
-        <p><strong>Edad:</strong> @Model.edad</p>
-            <p><strong>Legajo</strong> @Model.legajo</p>
+    <p><b>Nombre:</b> @ViewBag.Alumno.nombre</p>
+    <p><b>Apellido:</b> @ViewBag.Alumno.apellido</p>
+    <p><b>Curso:</b> @ViewBag.Alumno.curso</p>
+    <p><b>Promedio:</b> @ViewBag.Alumno.promedio</p>
+    <p><b>Aprobado o desaprobado:</b> @if (ViewBag.Alumno.promedio >= 6)
+    {
+        <p>Aprobado felilicidades</p>
+    }
+    else
+    {
+        <p>Desaprobado</p>
+    }
+
 </div>
 
 <a class="btn btn-info" href='@Url.Action("Index", "Home")'>Volver a la lista de alumnos</a>

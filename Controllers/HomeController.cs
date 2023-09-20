@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using Prac.Models;
+﻿﻿using System.Diagnostics;
+using Practica.Models;
 using Microsoft.AspNetCore.Mvc;
 using practica.Models;
-using Prac.Models;
+using Practica.Models;
 namespace practica.Controllers;
 
 public class HomeController : Controller
@@ -17,36 +17,23 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         ViewBag.ListaAlumnos = BD.SeleccionarAlumnos();
+        ViewBag.AlumnosConMenorASeis = BD.SeleccionarAlumnosConMenorASeis();
+        ViewBag.AlumnosConMayorASeis = BD.SeleccionarAlumnosConMayorASeis();
         return View();
     }
-
     public IActionResult Privacy()
     {
         return View();
     }
     public IActionResult VerDetalleAlumno(int id)
     {
-        Alumnos alumno = BD.AlumnoElegido(id);
+        Alumno alumno = BD.AlumnoElegido(id);
         ViewBag.Alumno = alumno;
+        ViewBag.Promedio = alumno.promedio;
         return View();
     }
-    public IActionResult CrearAlumno()
-    {
-        return View();
-    }
-    public IActionResult GuardarAlumno(Alumnos alumn)
-    {
-        if (string.IsNullOrEmpty(alumn.nombre))
-        {
-            ViewBag.Error = "Se deben completar todos los campos";
-            return RedirectToAction("CrearAlumno");
-        }
-        else
-        {
-            BD.InsertAlumno(alumn);
-            return RedirectToAction("index");
-        }
-    }
+
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
