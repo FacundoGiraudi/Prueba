@@ -1,0 +1,57 @@
+﻿@using Practica.Models
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Alumnos con Nota Menor a 6</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Curso</th>
+            <th>especialidad</th>
+            <th>Edad</th>
+            <th>Promedio</th>
+        </tr>
+    </thead>
+        @foreach (Alumno item in ViewBag.AlumnosConNotaMenorASeis)
+        {
+            <tr>
+                <td>@item.nombre</td>
+                <td>@item.apellido</td>
+                <td>@item.curso</td>
+                <td>@item.especialidad</td>
+                <td>@item.Edad</td>
+                <td>@item.promedio</td>
+                <td> <a class="btn btn-info" href='@Url.Action("VerDetalleAlumno","Home", new {id = item.id})'> Visualizar info alumno</a></td>
+            </tr>
+        }
+</table>
+
+<h2>Alumnos con Nota Mayor o Igual a 6</h2>
+<table class="table">
+    <thead>
+         <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Curso</th>
+            <th>especialidad</th>
+            <th>Edad</th>
+            <th>Promedio</th>
+        </tr>
+    </thead>
+        @foreach (Alumno item in ViewBag.AlumnosConNotaMayorASeis)
+        {
+            <tr>
+                <td>@item.nombre</td>
+                <td>@item.apellido</td>
+                <td>@item.curso</td>
+                <td>@item.especialidad</td>
+                <td>@item.Edad</td>
+                <td>@item.promedio</td>
+                <td><a class="btn btn-info" href='@Url.Action("VerDetalleAlumno","Home", new {id = item.id})'>Visualizar info alumno</a></td>
+            </tr>
+        }
+</table>
